@@ -32,8 +32,6 @@ public class MainActivity extends AppCompatActivity {
     private Double convertThisCurrencySecond;
     private String[] currencyArray = { "SEK", "USD", "EUR", "CHF", "AUD"};
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
