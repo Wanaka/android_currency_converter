@@ -1,11 +1,9 @@
 package com.example.jonas.kom_ihag_lista;
 
-import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -13,14 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toolbar;
-//import android.support.v7.widget.Toolbar;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
     private Spinner spinnerFirstCurrency;
     private Spinner spinnerSecondCurrency;
     private TextView convertTxt;
@@ -42,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
         toTxt = (TextView) findViewById(R.id.toTxt);
         secondCurrency = (TextView) findViewById(R.id.resultCurrency);
         convertButton = (Button) findViewById(R.id.convertBtn);
-
         firstCurrency.setGravity(Gravity.CENTER); // center input text
 
         // See if anything has been entered into the edit text field. Change button enabled accordingly
@@ -52,12 +43,9 @@ public class MainActivity extends AppCompatActivity {
             convertButton.setEnabled(true);
         }
 
-
-
         //Chose currency to change from
         spinnerFirstCurrency = (Spinner) findViewById(R.id.currencySpin);
         ArrayAdapter<String> adapter;
-
         adapter = new ArrayAdapter<String>(getApplicationContext(),
                 android.R.layout.simple_spinner_item, currencyArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -65,23 +53,11 @@ public class MainActivity extends AppCompatActivity {
 
         //Chose currency to change to
         spinnerSecondCurrency = (Spinner) findViewById(R.id.currencySpin2);
-        ArrayAdapter<String> adapter2;
-       /*
-        List<String> list2;
-
-        list2 = new ArrayList<String>();
-        list2.add("SEK"); //0
-        list2.add("USD"); //1
-        list2.add("EUR"); //2
-        list2.add("CHF"); //3
-        list2.add("AUD"); //4
-        */
-
+       final  ArrayAdapter<String> adapter2;
         adapter2 = new ArrayAdapter<String>(getApplicationContext(),
                 android.R.layout.simple_spinner_item, currencyArray);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerSecondCurrency.setAdapter(adapter2);
-
 
         //Button action
         convertButton.setOnClickListener( new View.OnClickListener() {
@@ -91,10 +67,12 @@ public class MainActivity extends AppCompatActivity {
                 final String sfirstCurrency = firstCurrency.getText().toString();
                 final Double dfirstCurrency = Double.parseDouble(sfirstCurrency);
 
-                System.out.println(dfirstCurrency);
+                int position1 = spinnerFirstCurrency.getSelectedItemPosition();
+                int position2 = spinnerSecondCurrency.getSelectedItemPosition();
+
 
                 //First currency spin switch
-                switch(spinnerFirstCurrency.getSelectedItemPosition()) {
+                switch(position1) {
                     case 0: //sek
                         System.out.println("sek chosen");
                         convertThisCurrencyFirst = 1.0000;
@@ -121,7 +99,8 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 //Second currency spin switch
-                switch(spinnerSecondCurrency.getSelectedItemPosition()) {
+
+                switch(position2) {
                     case 0: //sek
                         System.out.println("sek chosen");
                         convertThisCurrencySecond = 1.0000;
@@ -151,8 +130,7 @@ public class MainActivity extends AppCompatActivity {
                 final String makeString = Double.toString(calc);
                 final Float makeFloat = Float.parseFloat(makeString);
                 final String finalString = Float.toString(makeFloat);
-
-                secondCurrency.setText(finalString);
+                secondCurrency.setText(finalString); // set the currency that has been converted
             }
         });
 
@@ -161,20 +139,40 @@ public class MainActivity extends AppCompatActivity {
             public void afterTextChanged(Editable arg0) {
                 enableSubmitIfReady();
             }
-
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
         });
     } // end oncreate
 
-    public void enableSubmitIfReady(){ //check if any text has been added to the edit text
-        boolean isReady =firstCurrency.getText().toString().length()>0;
-        convertButton.setEnabled(isReady);
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    public void enableSubmitIfReady(){ //check if any text has been added to the edit text
+        boolean isReady = firstCurrency.getText().toString().length()>0;
+        convertButton.setEnabled(isReady);
+    }
 }
