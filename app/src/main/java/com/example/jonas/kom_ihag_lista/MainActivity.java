@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Layout;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
@@ -53,17 +54,16 @@ public class MainActivity extends AppCompatActivity {
         spinnerFirstCurrency = (Spinner) findViewById(R.id.currencySpin);
         final ArrayAdapter<String> adapter;
         adapter = new ArrayAdapter<String>(getApplicationContext(),
-                android.R.layout.simple_spinner_item, currencyArray);
+               R.layout.list_row, currencyArray);
         //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(R.layout.list_row); //support_simple_spinner_dropdown_item
         spinnerFirstCurrency.setAdapter(adapter);
-
 
         //Chose currency to change to
         spinnerSecondCurrency = (Spinner) findViewById(R.id.currencySpin2);
        final  ArrayAdapter<String> adapter2;
         adapter2 = new ArrayAdapter<String>(getApplicationContext(),
-                android.R.layout.simple_spinner_item, currencyArray);
+                R.layout.list_row, currencyArray);
        // adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapter2.setDropDownViewResource(R.layout.list_row);
         spinnerSecondCurrency.setAdapter(adapter2);
